@@ -1,0 +1,135 @@
+{
+    "main": "main.py",
+    "name": "AccessOwnership",
+    "homepage": "https://github.com/nzbgetcom/Extension-AccessOwnership",
+    "kind": "POST-PROCESSING",
+    "displayName": "AccessOwnership",
+    "version": "1.2",
+    "nzbgetMinVersion": "23",
+    "author": "Lennong",
+    "license": "GNU",
+    "about": "Sets access permissions & ownership to downloaded files.",
+    "queueEvents": "",
+    "requirements": [
+        "This extension is compatible with NZBGet v23+.",
+        "This extension requires Python3.8+ to be installed on your system."
+    ],
+    "description": [
+        "This script modifies access permissions & ownership on downloaded files."
+    ],
+    "options": [
+        {
+            "name": "DestDir",
+            "displayName": "DestDir",
+            "value": "",
+            "description": [
+                "Destination directory for downloads.",
+                "Set the same 'DestDir' value as set under the 'PATHS' settings.",
+                "",
+                "NOTE: Enable this extension in the 'Extensions' setting under 'EXTENSION SCRIPTS' after this extension is configured and saved."
+            ],
+            "select": []
+        },
+        {
+            "name": "Access",
+            "displayName": "Access",
+            "value": 660,
+            "description": [
+                "Sets access permissions to downloaded files. Use positive integers only.",
+                "",
+                "Default = '660'."
+            ],
+            "select": [0, 777]
+        },
+        {
+            "name": "Owner",
+            "displayName": "Owner",
+            "value": 1000,
+            "description": [
+                "Sets Owner (uid) to downloaded files. Use positive integers only.",
+                "",
+                "Default = '1000'."
+            ],
+            "select": ["UID"]
+        },
+        {
+            "name": "Group",
+            "displayName": "Group",
+            "value": 1000,
+            "description": [
+                "Set Group (gid) to downloaded files. Use positive integers only.",
+                "",
+                "Default = '1000'."
+            ],
+            "select": ["GID"]
+        },
+        {
+            "section": "Categories",
+            "name": "Name",
+            "displayName": "Name",
+            "value": "",
+            "description": [
+                "Category name."
+            ],
+            "select": []
+        },
+        {
+            "section": "Categories",
+            "name": "DestDir",
+            "displayName": "DestDir",
+            "value": "",
+            "description": [
+                "Destination directory for this category.",
+                "Set the same related 'Name' and 'DestDir' values as set in the 'CATEGORIES' settings.",
+                "",
+                "NOTE: Enable this extension in the 'Extensions' setting under 'CATEGORIES' after this extension is configured and saved."
+            ],
+            "select": []
+        },
+        {
+            "section": "Categories",
+            "name": "Access",
+            "displayName": "Access",
+            "value": 660,
+            "description": [
+                "Sets access permissions for downloaded files in this category. Use positive integers only.",
+                "",
+                "Default = '660'."
+            ],
+            "select": [0, 777]
+        },
+        {
+            "section": "Categories",
+            "name": "Owner",
+            "displayName": "Owner",
+            "value": 1000,
+            "description": [
+                "Sets Owner (uid) to downloaded files in this category. Use positive integers only.",
+                "",
+                "Default = '1000'."
+            ],
+            "select": ["UID"]
+        },
+        {
+            "section": "Categories",
+            "name": "Group",
+            "displayName": "Group",
+            "value": 1000,
+            "description": [
+                "Sets Group (gid) to downloaded files in this category. Use positive integers only.",
+                "",
+                "Default = '1000'."
+            ],
+            "select": ["GID"]
+        }
+    ],
+    "sections": [
+        {
+            "name": "Categories",
+            "prefix": "CategoryExt",
+            "multi": true
+        }
+    ],
+    "commands": [],
+    "taskTime": ""
+}
