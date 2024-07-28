@@ -10,6 +10,6 @@ Supports multiple categories and to configure access permissions & ownership sep
 Built in testfunction to test entered values.
 
 ## Installation
-For manual installation, unpack 'Extension-AccessOwnership-1.2.zip' into NZBget's scripts folder.<br />
+For manual installation, unpack 'Extension-AccessOwnership-1.3.zip' into NZBget's scripts folder.<br />
 Follow instructions here:<br />
 https://nzbget.com/documentation/extension-scripts
