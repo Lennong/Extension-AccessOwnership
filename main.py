@@ -36,11 +36,12 @@ for i in range(1, 100):
     if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
         countCategoryExt +=1
 
-
+# Testing the validity of settings, executed from settings page
 if test_mode:
     if not os.environ.get("NZBPO_DestDir") == os.environ.get("NZBOP_DestDir"):
         print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")])
         check = POSTPROCESS_ERROR
+
     if not re.match('^[0-7]*$', os.environ.get("NZBPO_Access")):
         print("Default Category: Invalid Access[mask]:",[os.environ.get("NZBPO_Access")])
         check = POSTPROCESS_ERROR
@@ -71,6 +72,7 @@ if test_mode:
             catextaccess = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
             catextowner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
             catextgroup = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
+
             if not re.match('^[0-7]*$', catextaccess):
                 print(catextname,"Category: Invalid Access[mask]:",[catextaccess])
                 check = POSTPROCESS_ERROR
@@ -140,12 +142,11 @@ group = os.environ['NZBPO_GROUP'];
 # If download is an added category, set the related destination dir
 if not category == "":
     for i in range(1, countCategoryExt):
-        #if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
-            if category == os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name"):
-                destdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
-                access = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
-                owner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
-                group = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
+        if category == os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name"):
+            destdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
+            access = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
+            owner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
+            group = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
 
 
 # Check if input values are valid
