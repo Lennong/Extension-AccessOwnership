@@ -1,7 +1,7 @@
 {
     "main": "main.py",
     "name": "AccessOwnership",
-    "homepage": "https://github.com/nzbgetcom/Extension-AccessOwnership",
+    "homepage": "https://github.com/Lennong/Extension-AccessOwnership",
     "kind": "POST-PROCESSING",
     "displayName": "AccessOwnership",
     "version": "1.3",
@@ -11,8 +11,8 @@
     "about": "Sets access permissions & ownership to downloaded files.",
     "queueEvents": "",
     "requirements": [
-        "This extension is compatible with NZBGet v23+.",
-        "This extension requires Python3.8+ to be installed on your system."
+        "This extension is compatible with NZBGet v24+.",
+        "This extension requires Python3.8 and above to be installed on your system."
     ],
     "description": [
         "This script modifies access permissions & ownership on downloaded files."
