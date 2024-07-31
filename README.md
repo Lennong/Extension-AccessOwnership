@@ -1,8 +1,8 @@
 # Extension-AccessOwnership
 Extension for NZBGet.
 
-This extension is compatible with NZBGet v23+.<br />
-This extension requires Python3.8+ to be installed on your system.
+This extension is compatible with NZBGet v24+.<br />
+This extension requires Python3.8 and above to be installed on your system.
 
 ## AccessOwnership
 This extension modifies access permissions & ownership on downloaded files.<br />
