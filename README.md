@@ -9,7 +9,10 @@ This extension modifies access permissions & ownership on downloaded files.<br /
 Supports multiple categories and to configure access permissions & ownership separately for each category.<br />
 Built in testfunction to test entered values.
 
+## OS Support (so far)
+Linux / Debian12
+
 ## Installation
-For manual installation, unpack 'Extension-AccessOwnership-1.3.zip' into NZBget's scripts folder.<br />
+For manual installation, unpack 'Extension-AccessOwnership-1.4.zip' into NZBget's scripts folder.<br />
 Follow instructions here:<br />
 https://nzbget.com/documentation/extension-scripts
