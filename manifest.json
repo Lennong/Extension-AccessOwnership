@@ -11,7 +11,7 @@
     "about": "Sets access permissions & ownership to downloaded files.",
     "queueEvents": "",
     "requirements": [
-        "This extension is compatible with NZBGet v23+.",
+        "This extension is compatible with NZBGet v24+.",
         "This extension requires Python3.8 and up to be installed on your system."
     ],
     "description": [
