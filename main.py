@@ -12,6 +12,10 @@ import grp
 POSTPROCESS_SUCCESS=93
 POSTPROCESS_ERROR=94
 
+# Debug messages from Extension
+#check_OS=
+check_SETTINGS="Check instructions in the extension settings"
+
 # Check if all required script config options are present in config file
 required_options = ('NZBPO_DESTDIR', 'NZBPO_ACCESS', 'NZBPO_OWNER', 'NZBPO_GROUP')
 for optname in required_options:
@@ -36,34 +40,33 @@ for i in range(1, 100):
     if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
         countCategoryExt +=1
 
-# Testing the validity of settings, executed from settings page
+
 if test_mode:
     if not os.environ.get("NZBPO_DestDir") == os.environ.get("NZBOP_DestDir"):
-        print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")])
+        print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")],check_SETTINGS)
         check = POSTPROCESS_ERROR
-
-    if not re.match('^[0-7]*$', os.environ.get("NZBPO_Access")):
-        print("Default Category: Invalid Access[mask]:",[os.environ.get("NZBPO_Access")])
+    if not re.match('^[0-7]{3}+$', os.environ.get("NZBPO_Access")):
+        print("Default Category: Invalid Access[mask]:",[os.environ.get("NZBPO_Access")],check_SETTINGS)
         check = POSTPROCESS_ERROR
 
     if not re.match('^[0-9]*$', os.environ.get("NZBPO_Owner")):
-        print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"Use positive integers only!")
+        print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],check_SETTINGS)
         check = POSTPROCESS_ERROR
     else:
         try:
             pwd.getpwuid(int(os.environ.get("NZBPO_Owner")))
         except KeyError:
-            print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.")
+            print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.",check_SETTINGS)
             check = POSTPROCESS_ERROR
 
     if not re.match('^[0-9]*$', os.environ.get("NZBPO_Group")):
-        print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],"Use positive integers only!")
+        print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],check_SETTINGS)
         check = POSTPROCESS_ERROR
     else:
         try:
             grp.getgrgid(int(os.environ.get("NZBPO_Group")))
         except KeyError:
-            print("Default Category: Invalid Group[UID]: Group[UID]",[os.environ.get("NZBPO_Group")],"Group not in system.")
+            print("Default Category: Invalid Group[UID]: Group[UID]",[os.environ.get("NZBPO_Group")],"Group not in system.",check_SETTINGS)
             check = POSTPROCESS_ERROR
 
     for i in range(1, countCategoryExt):
@@ -72,41 +75,40 @@ if test_mode:
             catextaccess = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
             catextowner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
             catextgroup = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
-
-            if not re.match('^[0-7]*$', catextaccess):
-                print(catextname,"Category: Invalid Access[mask]:",[catextaccess])
+            if not re.match('^[0-7]{3}+$', catextaccess):
+                print(catextname,"Category: Invalid Access[mask]:",[catextaccess],check_SETTINGS)
                 check = POSTPROCESS_ERROR
 
             if not re.match('^[0-9]*$', catextowner):
-                print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"Use positive integers only!")
+                print(catextname,"Category: Invalid Owner[UID]:",[catextowner],check_SETTINGS)
                 check = POSTPROCESS_ERROR
             else:
                 try:
                     pwd.getpwuid(int(catextowner))
                 except KeyError:
-                    print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"User not in system!")
+                    print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"User not in system.",check_SETTINGS)
                     check = POSTPROCESS_ERROR
 
             if not re.match('^[0-9]*$', catextgroup):
-                print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Use positive integers only!")
+                print(catextname,"Category: Invalid Group[UID]:",[catextgroup],check_SETTINGS)
                 check = POSTPROCESS_ERROR
             else:
                 try:
                     grp.getgrgid(int(catextgroup))
                 except KeyError:
-                    print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system!")
+                    print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system.",check_SETTINGS)
                     check = POSTPROCESS_ERROR
  
             countCategoryName = 1
             for i in range(1, countCategory):
                 if catextname == os.environ.get("NZBOP_Category" + str(i) + ".Name") is not None:
                     if not catextdestdir == os.environ.get("NZBOP_Category" + str(i) + ".DestDir"):
-                        print(catextname,"Category: Invalid Path:",[catextdestdir])
+                        print(catextname,"Category: Invalid Path:",[catextdestdir],check_SETTINGS)
                         check = POSTPROCESS_ERROR
                 else:
                     countCategoryName +=1
                     if countCategoryName >= countCategoryExt:
-                        print(catextname,"Category: Invalid CategoryExt Name:",[catextname],"Name not same as in CATEGORIES")   
+                        print(catextname,"Category: Invalid CategoryExt Name:",[catextname],"Name not same as in CATEGORIES",check_SETTINGS)   
                         check = POSTPROCESS_ERROR
 
     try:
@@ -142,36 +144,36 @@ group = os.environ['NZBPO_GROUP'];
 # If download is an added category, set the related destination dir
 if not category == "":
     for i in range(1, countCategoryExt):
-        if category == os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name"):
-            destdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
-            access = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
-            owner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
-            group = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
+            if category == os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name"):
+                destdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
+                access = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
+                owner = os.environ["NZBPO_CategoryExt" + str(i) + ".Owner"];
+                group = os.environ["NZBPO_CategoryExt" + str(i) + ".Group"];
 
 
 # Check if input values are valid
-if not re.match('^[0-7]*$', access):
-    print(category,"Category: Invalid Access[mask]:",[access])
+if not re.match('^[0-7]{3}+$', access):
+    print(category,"Category: Invalid Access[mask]:",[access],check_SETTINGS)
     sys.exit(POSTPROCESS_ERROR)
 
 if not re.match('^[0-9]*$', owner):
-    print(category,"Category: Invalid Owner[UID]:",[owner],"Use positive integers only!")
+    print(category,"Category: Invalid Owner[UID]:",[owner],check_SETTINGS)
     sys.exit(POSTPROCESS_ERROR)
 else:
     try:
         pwd.getpwuid(int(owner))
     except KeyError:
-        print(category,"Category: Invalid Owner[UID]:",[owner],"User not in system!")
+        print(category,"Category: Invalid Owner[UID]:",[owner],"User not in system.",check_SETTINGS)
         sys.exit(POSTPROCESS_ERROR)
 
 if not re.match('^[0-9]*$', group):
-    print(category,"Category: Invalid Group[UID]:",[group],"Use positive integers only!")
+    print(category,"Category: Invalid Group[UID]:",[group],check_SETTINGS)
     sys.exit(POSTPROCESS_ERROR)
 else:
     try:
         grp.getgrgid(int(group))
     except KeyError:
-        print(category,"Category: Invalid Group[UID]:",[group],"Group not in system!")
+        print(category,"Category: Invalid Group[UID]:",[group],"Group not in system.",check_SETTINGS)
         sys.exit(POSTPROCESS_ERROR)
 
 
