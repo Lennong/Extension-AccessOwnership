@@ -5,14 +5,14 @@
     "kind": "POST-PROCESSING",
     "displayName": "AccessOwnership",
     "version": "1.4",
-    "nzbgetMinVersion": "23",
+    "nzbgetMinVersion": "24",
     "author": "Lennong",
     "license": "GNU",
     "about": "Sets access permissions & ownership to downloaded files.",
     "queueEvents": "",
     "requirements": [
         "This extension is compatible with NZBGet v23+.",
-        "This extension requires Python3.8+ to be installed on your system."
+        "This extension requires Python3.8 and up to be installed on your system."
     ],
     "description": [
         "This script modifies access permissions & ownership on downloaded files."
