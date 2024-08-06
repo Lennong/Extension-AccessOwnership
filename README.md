@@ -11,7 +11,7 @@ Built in function to test entered values.
 Built in function to get UID and GID for NZBGet instance.
 
 ## OS Support (so far)
-Linux / Debian12
+Linux / Debian12<br />
 MacOS / 14
 
 ## Installation
