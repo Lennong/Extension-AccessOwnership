@@ -7,7 +7,7 @@ This extension requires Python3.8 and above to be installed on your system.
 ## AccessOwnership
 This extension modifies access permissions & ownership on downloaded files.<br />
 Supports multiple categories and to configure access permissions & ownership separately for each category.<br />
-Built in function to test entered values.
+Built in function to test entered values.<br />
 Built in function to get UID and GID for NZBGet instance.
 
 ## OS Support (so far)
