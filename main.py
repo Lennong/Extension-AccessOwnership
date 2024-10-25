@@ -19,7 +19,7 @@ CHECK_SETTINGS="Check instructions in the extension settings"
 required_options = ('NZBPO_DESTDIR', 'NZBPO_ACCESS', 'NZBPO_OWNER', 'NZBPO_GROUP')
 for optname in required_options:
     if (optname not in os.environ):
-        print('[ERROR] Option %s is missing in configuration file. Please check script settings' % optname[6:])
+        print(f"[ERROR] Option {optname[6:]} is missing in configuration file. Please check script settings")
         sys.exit(SCRIPT_ERROR)
 
 # Check if the script is executed from settings page with a custom command
