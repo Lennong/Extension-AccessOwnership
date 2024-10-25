@@ -90,7 +90,7 @@ if test_mode:
             print("Default Category: Invalid Group[GID]: Group[GID]",[os.environ.get("NZBPO_Group")],"Group not in system.",CHECK_SETTINGS)
             check = SCRIPT_ERROR
 
-    for i in range(1, countCategoryExt):
+    for i in range(1, countcategoryext):
         if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
             catextname = os.environ["NZBPO_CategoryExt" + str(i) + ".Name"];
             catextdestdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
@@ -122,14 +122,14 @@ if test_mode:
                     print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system.",CHECK_SETTINGS)
                     check = SCRIPT_ERROR
 
-            for i in range(1, countCategory):
+            for i in range(1, countcategory):
                 if catextname == os.environ.get("NZBOP_Category" + str(i) + ".Name"):
                     if not catextdestdir == os.environ.get("NZBOP_Category" + str(i) + ".DestDir"):
                         print(catextname,"Category: Invalid Path:",[catextdestdir],CHECK_SETTINGS)
                         check = SCRIPT_ERROR
 
             catnames = []
-            for i in range(1, countCategory):
+            for i in range(1, countcategory):
                 catname = os.environ.get("NZBOP_Category" + str(i) + ".Name")
                 catnames.append(catname)
             if catextname not in catnames:
@@ -152,7 +152,7 @@ for i in range(1, 100):
     catextaccess = os.environ.get("NZBPO_CATEGORYEXT" + str(i) + "_ACCESS")
     catextowner = os.environ.get("NZBPO_CATEGORYEXT" + str(i) + "_OWNER")
     catextgroup = os.environ.get("NZBPO_CATEGORYEXT" + str(i) + "_GROUP")
-    if catextname == None or catextdestdir == None:
+    if catextname is None or catextdestdir is None:
         break
     categories.append({catextname, catextdestdir, catextaccess, catextowner, catextgroup})
 
@@ -168,7 +168,7 @@ group = os.environ['NZBPO_GROUP'];
 
 # If download is an added category, read in the related values and dir
 if not category == "":
-    for i in range(1, countCategoryExt):
+    for i in range(1, countcategoryext):
         if category == os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name"):
             destdir = os.environ["NZBPO_CategoryExt" + str(i) + ".DestDir"];
             access = os.environ["NZBPO_CategoryExt" + str(i) + ".Access"];
