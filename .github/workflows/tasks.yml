@@ -1,0 +1,15 @@
+name: extension tasks
+
+on:
+  push:
+    branches:
+    - main
+    tags:
+    - "v*"
+
+jobs:
+  prospector:
+    uses: nzbgetcom/nzbget-extensions/.github/workflows/prospector.yml@main
+
+  manifest:
+    uses: nzbgetcom/nzbget-extensions/.github/workflows/manifest.yml@main
