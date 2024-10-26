@@ -59,6 +59,7 @@ for i in range(1, 100):
         countcategoryext +=1
 
 # Testing the validity of settings, executed from settings page
+check = SCRIPT_SUCCESS
 def testpath():
     if not os.environ.get("NZBPO_DestDir") == os.environ.get("NZBOP_DestDir"):
         print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")],CHECK_SETTINGS)
