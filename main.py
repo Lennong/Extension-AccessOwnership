@@ -59,14 +59,17 @@ for i in range(1, 100):
         countcategoryext +=1
 
 # Testing the validity of settings, executed from settings page
-if test_mode:
+def testpath():
     if not os.environ.get("NZBPO_DestDir") == os.environ.get("NZBOP_DestDir"):
         print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
+
+def testaccess():
     if not re.match('^[0-7]{3}$', os.environ.get("NZBPO_Access")):
         print("Default Category: Invalid Access[mask]:",[os.environ.get("NZBPO_Access")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
 
+def testowner():
     if not re.match('^[0-9]{1,}$', os.environ.get("NZBPO_Owner")):
         print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
@@ -77,6 +80,7 @@ if test_mode:
             print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.",CHECK_SETTINGS)
             check = SCRIPT_ERROR
 
+def testgroup():
     if not re.match('^[0-9]{1,}$', os.environ.get("NZBPO_Group")):
         print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
@@ -86,6 +90,12 @@ if test_mode:
         except KeyError:
             print("Default Category: Invalid Group[GID]: Group[GID]",[os.environ.get("NZBPO_Group")],"Group not in system.",CHECK_SETTINGS)
             check = SCRIPT_ERROR
+
+if test_mode:
+    testpath()
+    testaccess()
+    testowner()
+    testgroup()
 
     for i in range(1, countcategoryext):
         if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
