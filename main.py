@@ -34,19 +34,22 @@ if command is not None and not any((detect_mode,test_mode)):
 if detect_mode:
     if pwd.getpwuid(os.getuid())[2] is not None:
         print("User UID is detected:",[pwd.getpwuid(os.getuid())[2]],)
-        check = SCRIPT_SUCCESS
     else:
         print("Cannot detect logged in users UID")
         check = SCRIPT_ERROR
 
     if pwd.getpwuid(os.getuid())[3] is not None:
         print("Group GID is detected:",[pwd.getpwuid(os.getuid())[3]],)
-        check = SCRIPT_SUCCESS
     else:
         print("Cannot detect logged in users GID")
         check = SCRIPT_ERROR
 
-    sys.exit(check)
+    try:
+        check
+    except NameError: 
+        sys.exit(SCRIPT_SUCCESS)
+    else:
+        sys.exit(check)
 
 # Counters for added Categories
 countcategory = 1
@@ -59,21 +62,14 @@ for i in range(1, 100):
         countcategoryext +=1
 
 # Testing the validity of settings, executed from settings page
-def testpath():
+if test_mode:
     if not os.environ.get("NZBPO_DestDir") == os.environ.get("NZBOP_DestDir"):
         print("Default Category: Invalid Path:",[os.environ.get("NZBPO_DestDir")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
-    else:
-        check = SCRIPT_SUCCESS
-
-def testaccess():
     if not re.match('^[0-7]{3}$', os.environ.get("NZBPO_Access")):
         print("Default Category: Invalid Access[mask]:",[os.environ.get("NZBPO_Access")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
-    else:
-        check = SCRIPT_SUCCESS
 
-def testowner():
     if not re.match('^[0-9]{1,}$', os.environ.get("NZBPO_Owner")):
         print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
@@ -83,10 +79,7 @@ def testowner():
         except KeyError:
             print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.",CHECK_SETTINGS)
             check = SCRIPT_ERROR
-        else:
-            check = SCRIPT_SUCCESS
 
-def testgroup():
     if not re.match('^[0-9]{1,}$', os.environ.get("NZBPO_Group")):
         print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],CHECK_SETTINGS)
         check = SCRIPT_ERROR
@@ -96,15 +89,6 @@ def testgroup():
         except KeyError:
             print("Default Category: Invalid Group[GID]: Group[GID]",[os.environ.get("NZBPO_Group")],"Group not in system.",CHECK_SETTINGS)
             check = SCRIPT_ERROR
-        else:
-            check = SCRIPT_SUCCESS
-
-if test_mode:
-
-    testpath()
-    testaccess()
-    testowner()
-    testgroup()
 
     for i in range(1, countcategoryext):
         if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
