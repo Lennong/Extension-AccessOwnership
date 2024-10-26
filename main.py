@@ -34,22 +34,19 @@ if command is not None and not any((detect_mode,test_mode)):
 if detect_mode:
     if pwd.getpwuid(os.getuid())[2] is not None:
         print("User UID is detected:",[pwd.getpwuid(os.getuid())[2]],)
+        check = SCRIPT_SUCCESS
     else:
         print("Cannot detect logged in users UID")
         check = SCRIPT_ERROR
 
     if pwd.getpwuid(os.getuid())[3] is not None:
         print("Group GID is detected:",[pwd.getpwuid(os.getuid())[3]],)
+        check = SCRIPT_SUCCESS
     else:
         print("Cannot detect logged in users GID")
         check = SCRIPT_ERROR
 
-    try:
-        check
-    except NameError: 
-        sys.exit(SCRIPT_SUCCESS)
-    else:
-        sys.exit(check)
+    sys.exit(check)
 
 # Counters for added Categories
 countcategory = 1
