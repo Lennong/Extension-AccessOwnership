@@ -16,7 +16,7 @@ SCRIPT_ERROR=94
 CHECK_SETTINGS="Check instructions in the extension settings"
 
 # Check if all required script config options are present in config file
-required_options = ('NZBPO_DESTDIR', 'NZBPO_ACCESS', 'NZBPO_OWNER', 'NZBPO_GROUP')
+required_options = ('NZBPO_DESTDIR', 'NZBPO_ACCESS', 'NZBPO_OWNER', 'NZBPO_GROUP', 'NZBPO_OVERRIDEID')
 for optname in required_options:
     if (optname not in os.environ):
         print(f"[ERROR] Option {optname[6:]} is missing in configuration file. Please check script settings")
@@ -29,6 +29,9 @@ test_mode = command == "Test"
 if command is not None and not any((detect_mode,test_mode)):
     print('[ERROR] Invalid command ' + command)
     sys.exit(SCRIPT_ERROR)
+
+# Override and debugging
+overrideid = os.environ['NZBPO_OVERRIDEID'];
 
 # Detecting users Owner[UID] and Group[GID], executed from settings page
 if detect_mode:
@@ -77,8 +80,11 @@ if test_mode:
         try:
             pwd.getpwuid(int(os.environ.get("NZBPO_Owner")))
         except KeyError:
-            print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.",CHECK_SETTINGS)
-            check = SCRIPT_ERROR
+            if overrideid == "yes":
+                print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"<- ENABLED!!")
+            else:
+                print("Default Category: Invalid Owner[UID]:",[os.environ.get("NZBPO_Owner")],"User not in system.",CHECK_SETTINGS)
+                check = SCRIPT_ERROR
 
     if not re.match('^[0-9]{1,}$', os.environ.get("NZBPO_Group")):
         print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],CHECK_SETTINGS)
@@ -87,8 +93,11 @@ if test_mode:
         try:
             grp.getgrgid(int(os.environ.get("NZBPO_Group")))
         except KeyError:
-            print("Default Category: Invalid Group[GID]: Group[GID]",[os.environ.get("NZBPO_Group")],"Group not in system.",CHECK_SETTINGS)
-            check = SCRIPT_ERROR
+            if overrideid == "yes":
+                print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],"<- ENABLED!!")
+            else:
+                print("Default Category: Invalid Group[GID]:",[os.environ.get("NZBPO_Group")],"Group not in system.",CHECK_SETTINGS)
+                check = SCRIPT_ERROR
 
     for i in range(1, countcategoryext):
         if os.environ.get("NZBPO_CategoryExt" + str(i) + ".Name") is not None:
@@ -109,8 +118,11 @@ if test_mode:
                 try:
                     pwd.getpwuid(int(catextowner))
                 except KeyError:
-                    print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"User not in system.",CHECK_SETTINGS)
-                    check = SCRIPT_ERROR
+                    if overrideid == "yes":
+                        print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"User not in system.","<- ENABLED!!")
+                    else:
+                        print(catextname,"Category: Invalid Owner[UID]:",[catextowner],"User not in system.",CHECK_SETTINGS)
+                        check = SCRIPT_ERROR
 
             if not re.match('^[0-9]{1,}$', catextgroup):
                 print(catextname,"Category: Invalid Group[UID]:",[catextgroup],CHECK_SETTINGS)
@@ -119,8 +131,11 @@ if test_mode:
                 try:
                     grp.getgrgid(int(catextgroup))
                 except KeyError:
-                    print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system.",CHECK_SETTINGS)
-                    check = SCRIPT_ERROR
+                    if overrideid == "yes":
+                        print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system.","<- ENABLED!!")
+                    else:
+                        print(catextname,"Category: Invalid Group[UID]:",[catextgroup],"Group not in system.",CHECK_SETTINGS)
+                        check = SCRIPT_ERROR
 
             for i in range(1, countcategory):
                 if catextname == os.environ.get("NZBOP_Category" + str(i) + ".Name"):
@@ -187,8 +202,11 @@ else:
     try:
         pwd.getpwuid(int(owner))
     except KeyError:
-        print(category,"Category: Invalid Owner[UID]:",[owner],"User not in system.",CHECK_SETTINGS)
-        sys.exit(SCRIPT_ERROR)
+        if overrideid == "yes":
+            print(category,"Category: Invalid Owner[UID]:",[owner],"User not in system.","<- ENABLED!!")
+        else:
+            print(category,"Category: Invalid Owner[UID]:",[owner],"User not in system.",CHECK_SETTINGS)
+            sys.exit(SCRIPT_ERROR)
 
 if not re.match('^[0-9]{1,}$', group):
     print(category,"Category: Invalid Group[UID]:",[group],CHECK_SETTINGS)
@@ -197,8 +215,11 @@ else:
     try:
         grp.getgrgid(int(group))
     except KeyError:
-        print(category,"Category: Invalid Group[UID]:",[group],"Group not in system.",CHECK_SETTINGS)
-        sys.exit(SCRIPT_ERROR)
+        if overrideid == "yes":
+            print(category,"Category: Invalid Group[UID]:",[group],"Group not in system.","<- ENABLED!!")
+        else:
+            print(category,"Category: Invalid Group[UID]:",[group],"Group not in system.",CHECK_SETTINGS)
+            sys.exit(SCRIPT_ERROR)
 
 
 # Apply chmod & chown to files in destination dir
