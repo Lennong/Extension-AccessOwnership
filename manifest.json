@@ -1,26 +1,37 @@
 {
     "main": "main.py",
     "name": "AccessOwnership",
-    "homepage": "https://github.com/nzbgetcom/Extension-AccessOwnership",
+    "homepage": "https://github.com/Lennong/Extension-AccessOwnership",
     "kind": "POST-PROCESSING",
     "displayName": "AccessOwnership",
-    "version": "1.5",
+    "version": "1.6",
     "nzbgetMinVersion": "24",
     "author": "Lennong",
     "license": "GNU",
-    "about": "Sets access permissions & ownership to downloaded files.",
+    "about": "Sets access permissions & ownership to downloaded files",
     "queueEvents": "",
     "requirements": [
         "This extension is compatible with NZBGet v24+.",
         "This extension requires Python3.8 and up to be installed on your system.",
-        "This extension is supported on [Linux, MacOS].",
+        "This extension is supported on [Linux, MacOS, Docker].",
         "",
-        "Start initial configuration of this extension by save and reload one time!"
+        "START INITIAL CONFIGURATION OF THIS EXTENSION BY SAVE AND RELOAD ONE TIME!"
     ],
     "description": [
         "This script modifies access permissions & ownership on downloaded files."
     ],
     "options": [
+        {
+            "name": "OverrideID",
+            "displayName": "Override UID and GID",
+            "value": "no",
+            "description": [
+                "To override UID or GID check and allow non-system present UID and GID to be set on downloaded files",
+                "",
+                "NOTE: WARNING! Only use this if you know what you are doing!"
+            ],
+            "select": ["no", "yes"]
+        },
         {
             "name": "DestDir",
             "displayName": "DestDir",
