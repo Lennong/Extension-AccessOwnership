@@ -13,7 +13,7 @@ Built in function to get UID and GID for NZBGet instance.
 
 ## OS Support (so far)
 Linux / Debian12<br />
-MacOS / 14
+MacOS / 14<br />
 Docker
 
 ## Installation
