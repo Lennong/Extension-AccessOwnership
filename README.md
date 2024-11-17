@@ -10,11 +10,13 @@ Supports multiple categories and to configure access permissions & ownership sep
 Built in function to test entered values.<br />
 Built in function to get UID and GID for NZBGet instance.
 
+
 ## OS Support (so far)
 Linux / Debian12<br />
 MacOS / 14
+Docker
 
 ## Installation
-For manual installation, unpack 'Extension-AccessOwnership-1.5.zip' into NZBget's scripts folder.<br />
+For manual installation, unpack 'Extension-AccessOwnership-1.6.zip' into NZBget's scripts folder.<br />
 Follow instructions here:<br />
 https://nzbget.com/documentation/extension-scripts
